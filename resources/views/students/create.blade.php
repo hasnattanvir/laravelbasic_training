@@ -19,7 +19,7 @@
                     <div class="text-center">
                         <h3 class="text-primary">Entry Student</h3>
                     </div>
-                    <form action="{{route('user.insert')}}" method="post" autocomplete="on">
+                    <form action="{{route('user.insert')}}" method="post" autocomplete="on" enctype="multipart/form-data">
                         @if (Session::get('success'))
                         <div class="alert alert-success">{{Session::get('success')}}</div>
                         @endif
@@ -47,6 +47,7 @@
                             @error('phone')
                             <div class="alert alert-danger">{{$message}}</div>
                             @enderror
+
                             <div class="input-group mb-3">
                                 <span class="input-group-text bg-primary"><i
                                         class="bi bi-key-fill text-white"></i></span>
@@ -55,6 +56,18 @@
                             @error('address')
                             <div class="alert alert-danger">{{$message}}</div>
                             @enderror
+
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-primary"><i
+                                        class="bi bi-key-fill text-white"></i></span>
+                                <input type="file" name="image" id="form-control">
+                            </div>
+                            @error('image')
+                            <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
+
+                            
 
                             <button class="btn btn-primary text-center mt-2" type="submit">
                                 Insert

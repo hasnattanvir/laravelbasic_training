@@ -55,7 +55,7 @@ Route::prefix('student')
         Route::get('/create','create')->name('create');
         Route::post('/insert','insert')->name('insert');
         Route::get('/update/{id}','update')->name('up');
-        Route::get('/delete/{id}','delete');
+        Route::delete('/datadelete/{id}','deletedata');
         Route::get('/show','show')->name('show');
 });
 

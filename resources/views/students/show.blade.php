@@ -17,15 +17,29 @@
         <th scope="col">Name</th>
         <th scope="col">Phone</th>
         <th scope="col">Address</th>
+        <th scope="col">Photo</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
      
+      @foreach ($stdata as $item)
       <tr class="">
-        <td>{{$stdata->name}}</td>
-        <td>{{$stdata->phone}}</td>
-        <td>{{$stdata->address}}</td>
+        <td>{{$item->name}}</td>
+        <td>{{$item->phone}}</td>
+        <td>{{$item->address}}</td>
+        <td><img src="{{asset('storage/studentsphoto/')}}/{{$item->image}}" alt="photo" width="100px"></td>
+        <td>
+          <a href="" class="btn btn-success">Edit</a>
+          <form action="/datadelete/{{$item->id}}" method="POST">
+            @method('DELETE')
+            @csrf 
+            <button class="btn btn-danger" >Delete</button>
+          </form>
+        </td>
       </tr>
+      @endforeach
+
 
       
       
