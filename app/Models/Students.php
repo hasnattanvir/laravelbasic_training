@@ -13,5 +13,10 @@ class Students extends Model
         'phone',
         'address',
         'image',
+        'sub_id'
     ];
+
+    public function subject(){
+        return $this->belongsTo(Subject::class);
+    }
 }

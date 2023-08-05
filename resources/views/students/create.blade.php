@@ -48,6 +48,17 @@
                             <div class="alert alert-danger">{{$message}}</div>
                             @enderror
 
+                            <div class="mb-2">
+                                <select name="subjectname" id="" class="form-control">
+                                    <option>Selet Your Subject</option>
+                                    @foreach ($subject as $item)                                                                   
+                                    <option value="{{$item->id}}">{{$item->SubName}}</option>
+                                    @endforeach
+                                </select>
+
+
+                            </div>
+
                             <div class="input-group mb-3">
                                 <span class="input-group-text bg-primary"><i
                                         class="bi bi-key-fill text-white"></i></span>

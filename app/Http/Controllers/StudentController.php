@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Students;
+use App\Models\Subject;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,8 +14,9 @@ class StudentController extends Controller
 {
     
     public function create(){
-        
-        return view('students.create');
+        $subject = Subject::all();
+        // dd($subject);
+        return view('students.create',compact('subject'));
     }
     public function update(){
         return view('students.update');
@@ -34,8 +36,8 @@ class StudentController extends Controller
 
     }
     public function show(){
-        $stdata = Students::all();
-        return view('students.show',compact('stdata'));
+        $stdata = Students::with('subject')->get();
+        return view('students.show',compact('stdata','sub'));
     }
 
     public function insert(Request $respons){
@@ -44,12 +46,14 @@ class StudentController extends Controller
             'phone'=>'required|numeric|unique:students,phone|digits:11',
             'address'=>'required|string',
             'image'=>'required|mimes:jpeg,jpg,bmp,png',
+            'subjectname'=>'required',
         ]);
 
         $data = Students::create([
             'name'=>$respons->name,
             'phone'=>$respons->phone,
             'address'=>$respons->address,
+            'sub_id'=>$respons->subjectname,
             'image'=>'image.jpg',
         ]);
 

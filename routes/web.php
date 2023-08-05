@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\StudentController;
-
+use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\User\Usercontroller;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +53,17 @@ Route::get('/user/profile',function(){
 Route::prefix('student')
     ->name('user.')
     ->controller(StudentController::class)
+    ->group(function(){
+        Route::get('/create','create')->name('create');
+        Route::post('/insert','insert')->name('insert');
+        Route::get('/update/{id}','update')->name('up');
+        Route::delete('/datadelete/{id}','deletedata');
+        Route::get('/show','show')->name('show');
+});
+
+Route::prefix('subject')
+    ->name('sub.')
+    ->controller(SubjectController::class)
     ->group(function(){
         Route::get('/create','create')->name('create');
         Route::post('/insert','insert')->name('insert');
@@ -123,3 +136,27 @@ Route::prefix('student')
 Route::get('/test/show/profile', function () {
     echo "This is your profle";
 })->name('profile');
+
+Auth::routes();
+
+
+Route::prefix('user')->name('user.')->group(function(){
+    Route::middleware(['guest:web','PreventBackHistory'])->group(function(){
+        Route::view('/login','dashboard.user.login')->name('login');
+        Route::view('/register','dashboard.user.register')->name('register');
+        Route::post('/create',[Usercontroller::class,'create'])->name('create');
+        Route::post('/check',[Usercontroller::class,'check'])->name('check');
+    });
+
+    Route::middleware(['auth:web','PreventBackHistory'])->group(function(){
+        Route::view('/home','dashboard.user.home')->name('home');
+        Route::get('/logout',[Usercontroller::class,'logout'])->name('logout');
+
+    });
+});
+
+
+
+
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
